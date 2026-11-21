@@ -1,0 +1,25 @@
+name: Browser tests
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m playwright install --with-deps ${{ matrix.engine }}
+      - run: python -m pytest -v tests --engine ${{ matrix.engine }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.engine }}
+          path: |
+            test-report.html
+            junit-results.xml
+            evidence/

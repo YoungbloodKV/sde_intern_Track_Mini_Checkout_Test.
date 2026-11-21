@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A dependency-free demo checkout with browser tests." />
+  <title>Mini Checkout — Browser Test Challenge</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <nav class="store-nav" aria-label="Store"><a tabindex="0" class="store-logo" href="index.html"><span class="logo-mark">l.</span> little store<span class="logo-dot">.</span></a><span class="nav-caption">Thoughtful essentials. Everyday prices.</span><a tabindex="0" class="bag-link" href="#checkout-title"><span aria-hidden="true">♧</span> Your bag <span id="header-count">0</span></a></nav>
+    <header class="masthead"><div class="breadcrumb">Store <span>/</span> Your shopping bag</div><div class="intro-row"><div><h1>Good things, everyday.</h1><p class="subtitle">A few essentials. A little less ordinary.</p></div><span class="demo-tag">DEMO STORE · NO PAYMENT</span></div></header>
+    <div class="layout">
+      <section class="panel catalog" aria-labelledby="products-title">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">THE EVERYDAY COLLECTION</span>
+            <h2 id="products-title">Meet your essentials</h2>
+          </div>
+          <span class="pill">2 products</span>
+        </div>
+        <div class="products" id="product-list">
+          <article class="product" data-product="tote">
+            <div class="product-art tote" aria-hidden="true"><div class="tote-drawing"><i></i><b>little<br>things.</b></div></div>
+            <div class="product-details"><h3>Canvas Tote</h3><p>Room for your everyday. Made to go everywhere.</p><strong>₹499.00</strong></div>
+            <button type="button" class="add-button" data-add="tote" aria-label="Add Canvas Tote to cart">Add <span aria-hidden="true">＋</span></button>
+          </article>
+          <article class="product" data-product="bottle">
+            <div class="product-art bottle" aria-hidden="true"><div class="bottle-drawing"><i></i><b>little.</b></div></div>
+            <div class="product-details"><h3>Steel Bottle</h3><p>Keep your cool, wherever the day takes you.</p><strong>₹299.00</strong></div>
+            <button type="button" class="add-button" data-add="bottle" aria-label="Add Steel Bottle to cart">Add <span aria-hidden="true">＋</span></button>
+          </article>
+        </div>
+        <p class="catalog-note">Prices are fixed • No tax or shipping fees • Quantities from 1 to 99</p>
+      </section>
+
+      <section class="panel checkout" aria-labelledby="checkout-title">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">READY WHEN YOU ARE</span>
+            <h2 id="checkout-title">Order summary</h2>
+          </div>
+          <span class="item-counter" id="item-count" aria-live="polite">0 items</span>
+        </div>
+        <div id="empty-cart" class="empty-cart">
+          <div class="empty-symbol" aria-hidden="true">✺</div>
+          <p>Your cart is empty</p>
+          <small>Add something you like to get started.</small>
+        </div>
+        <div id="cart-wrapper" hidden>
+          <table class="cart-table" aria-label="Cart items">
+            <thead><tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Line total</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+            <tbody id="cart-rows"></tbody>
+          </table>
+        </div>
+        <section id="discount-controls" aria-label="Discount code"><label for="promo-code">Have a promo code?</label><p class="field-help">Use SAVE10 for 10% off.</p><input id="promo-code" type="text" placeholder="SAVE10" /><button id="apply-discount" data-testid="apply-discount" type="button">Apply</button><button id="remove-discount" type="button">Remove discount</button><p id="promo-status" role="status"></p></section><div class="total-row"><span>Subtotal</span><strong id="subtotal"></strong></div><div class="total-row"><span>Discount (10%)</span><strong id="discount-amount"></strong></div><div class="total-row"><span>Total payable</span><strong id="order-total" data-testid="order-total" aria-live="polite">₹0.00</strong></div>
+        <div class="checkout-divider"></div>
+        <form id="checkout-form" novalidate>
+          <label for="customer-name">Your name <span class="required">*</span></label>
+          <input id="customer-name" data-testid="customer-name" name="customer-name" type="text" autocomplete="name" maxlength="80" placeholder="e.g., Alex Example" required aria-describedby="name-help" />
+          <p id="name-help" class="field-help">Required to confirm your order.</p>
+          <div id="validation-message" class="validation-message" role="alert" hidden></div>
+          <button id="place-order" data-testid="place-order" type="submit" class="place-order">Place order</button>
+        </form>
+        <section id="order-confirmation" data-testid="order-confirmation" class="confirmation" role="status" aria-live="polite" hidden>
+          <div class="confirmation-icon" aria-hidden="true">✓</div>
+          <span class="receipt-badge">ORDER CONFIRMED</span><h3 tabindex="-1" id="confirmation-title">Order placed successfully!</h3>
+          <p>Thanks, <span id="confirmed-name"></span>. Your order is confirmed.</p>
+          <p class="reference-label">ORDER REFERENCE</p>
+          <strong id="order-reference"></strong>
+          <div class="receipt-items" id="confirmed-items" aria-label="Ordered items"></div><div class="receipt-row"><span>Subtotal</span><strong id="confirmed-subtotal"></strong></div><div class="receipt-row"><span id="confirmed-discount-label">Discount</span><strong id="confirmed-discount"></strong></div><p class="confirmation-total">Order total: <strong id="confirmed-total"></strong> <span class="not-paid">(demo only — no payment taken)</span></p>
+          <p class="receipt-note">This is your demo order receipt. No payment was collected and no delivery will be arranged.</p><button id="new-order" type="button">Start a new order</button>
+        </section>
+      </section>
+    </div>
+    <footer>little store. <span>Everyday essentials, simply done.</span> <span>Demo checkout · No payment collected</span></footer>
+  </main>
+</body>
+</html>
